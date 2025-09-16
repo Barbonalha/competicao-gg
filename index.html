@@ -114,8 +114,12 @@
     const listaAtividades = document.getElementById("listaAtividades");
 
     function getTodayDate() {
-      return new Date().toLocaleDateString("pt-BR");
-    }
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+  const dia = String(hoje.getDate()).padStart(2, '0');
+  return `${ano}-${mes}-${dia}`; // formato YYYY-MM-DD
+}
 
     function atualizarDashboard(atividadesHoje) {
       let stats = { Gustavo: { total:0,count:0 }, Gabriella: { total:0,count:0 }};
@@ -172,3 +176,4 @@
   </script>
 </body>
 </html>
+
