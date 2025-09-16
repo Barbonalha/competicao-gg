@@ -23,6 +23,25 @@
     table { width:100%; border-collapse:collapse; margin-top:1rem; }
     th,td { padding:0.8rem; border-bottom:1px solid #e5e7eb; text-align:left; }
     th { background:#f3f4f6; text-transform:uppercase; font-size:0.8rem; }
+
+    /* -------- Responsividade -------- */
+    @media (max-width: 768px) {
+      .main-container { flex-direction: column; }
+      .sidebar { width: 100%; padding: 1rem; display: flex; flex-direction: column; align-items: center; }
+      .user-card { width: 100%; margin: 0.5rem 0; }
+      .main-content { padding: 1rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead tr { display: none; }
+      tr { margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0.5rem; background: white; }
+      td { display: flex; justify-content: space-between; padding: 0.5rem; border: none; }
+      td::before { font-weight: bold; color: #555; }
+      td:nth-of-type(1)::before { content: "Usuário:"; }
+      td:nth-of-type(2)::before { content: "Atividade:"; }
+      td:nth-of-type(3)::before { content: "Duração:"; }
+      td:nth-of-type(4)::before { content: "Data:"; }
+      td:nth-of-type(5)::before { content: "Ação:"; }
+    }
   </style>
 </head>
 <body>
@@ -78,16 +97,16 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script>
-    // 🚨 Troque pelo SEU config do Firebase
+    // 🔧 Configuração do Firebase
     const firebaseConfig = {
-    apiKey: "AIzaSyAtIcz7okyx9lJEV3_97NrSPxh0Uycm-KM",
-    authDomain: "competicao-gg.firebaseapp.com",
-    projectId: "competicao-gg",
-    storageBucket: "competicao-gg.firebasestorage.app",
-    messagingSenderId: "695901085155",
-    appId: "1:695901085155:web:114fb5728be55c06c2d4d6",
-    measurementId: "G-REN540526Y"
-  };
+      apiKey: "AIzaSyAtIcz7okyx9lJEV3_97NrSPxh0Uycm-KM",
+      authDomain: "competicao-gg.firebaseapp.com",
+      projectId: "competicao-gg",
+      storageBucket: "competicao-gg.firebasestorage.app",
+      messagingSenderId: "695901085155",
+      appId: "1:695901085155:web:114fb5728be55c06c2d4d6",
+      measurementId: "G-REN540526Y"
+    };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -122,7 +141,7 @@
       ["Gustavo","Gabriella"].forEach(u=>{
         document.getElementById(u.toLowerCase()+"Atividades").textContent = stats[u].count;
         document.getElementById(u.toLowerCase()+"Horas").textContent = (stats[u].total/60).toFixed(2)+"h";
-        const pct = Math.min((stats[u].total/120)*100,100); // meta 2h
+        const pct = Math.min((stats[u].total/120)*100,100); // meta fixa: 2h (120min)
         document.getElementById(u.toLowerCase()+"Progress").style.width = pct+"%";
       });
     }
